@@ -1,12 +1,25 @@
-<!DOCTYPE html>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+    <%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
+    
+    <%@ page isELIgnored="false" %>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <title>CLOTHES SITE</title>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="shortcut icon" type="image/x-icon" href="resources/android-icon-96x96.png" />
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+img:hover {
+    -webkit-transform: scaleX(-1);
+    transform: scaleX(-1);
+}
+</style>
 <style>
 body {
     font-family: "Lato", sans-serif;
@@ -182,15 +195,15 @@ span.psw {
   <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
   <div class="w3-container w3-display-container w3-padding-16"STYLE="FONT-WEIGHT:BOLD">
     <i onclick="w3_close()" class="fa fa-remove w3-hide-large w3-button w3-display-topright"></i>
-       <a href="javascript:void(0)" class="w3-button w3-red w3-padding-large w3-large" onclick="document.getElementById('REGISTER').style.display='block'">REGISTER</a>  
+       <a href="javascript:void(0)" class="w3-button w3-red w3-padding-large w3-small" onclick="document.getElementById('REGISTER').style.display='block'">REGISTER</a>  
   </div>
    <div class="w3-container w3-display-container w3-padding-16"STYLE="FONT-WEIGHT:BOLD">
     <i onclick="w3_close()" class="fa fa-remove w3-hide-large w3-button w3-display-topright"></i>
-       <a href="javascript:void(0)" class="w3-button w3-green w3-padding-large w3-large" onclick="document.getElementById('LOGIN').style.display='block'">LOGIN</a>  
+       <a href="javascript:void(0)" class="w3-button w3-green w3-padding-large w3-small" onclick="document.getElementById('LOGIN').style.display='block'">LOGIN</a>  
   </div>
   <div class="w3-padding-16 w3-large w3-text-grey" style="font-weight:bold">
-    <a href="#">Shirts</a>
-    <a href="#">Dresses</a>
+    <a href="category?menu=shirts">Shirts</a>
+    <a href="category?category=shirts">pant</a>
     <a onclick="myAccFunc()" href="javascript:void(0)"  id="myBtn">
       Jeans <i class="fa fa-caret-down"></i>
     </a>
@@ -200,10 +213,12 @@ span.psw {
       <a href="#"><i class="fa fa-caret-right w3-margin-right"></i>Bootcut</a>
       <a href="#"><i class="fa fa-caret-right w3-margin-right"></i>Straight</a>
     </div>
-    <a href="#" >Jackets</a>
-    <a href="#" >Gymwear</a>
-    <a href="#" >Blazers</a>
-    <a href="#" >Shoes</a>
+    
+   <c:forEach items="${categories}" var="category">
+    <a href="category?menu=${ category.name}">${category.name}
+
+    </a>
+   </c:forEach>
   </div>
   <a href="#footer" >Contact</a> 
     <a href="#footer" >About</a> 
@@ -218,18 +233,19 @@ span.psw {
 <div class="w3-overlay w3-hide-large" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
 
 <!-- !PAGE CONTENT! -->
-<div class="w3-main" style="margin-left:250px">
+<div class="w3-main" style="margin-left:0px">
 
   <!-- Push down content on small screens -->
-  <div class="w3-hide-large" style="margin-top:83px"></div>
+  <div class="w3-hide-large" style="margin-top:0px"></div>
   
   <!-- Top header -->
   <header class="w3-container w3-xlarge">
+   
     <p class="w3-left"><span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; open</span>
     </p>
     <p class="w3-right">
       <i class="fa fa-shopping-cart w3-margin-right"></i>
-      <i class="fa fa-search"></i>
+      <a href="#" class="fa fa-search"></a>
     </p>
   </header>
 
@@ -375,14 +391,14 @@ span.psw {
   <div class="w3-modal-content w3-animate-zoom" style="padding:32px">
     <div class="w3-container w3-white w3-center">
       <i onclick="document.getElementById('REGISTER').style.display='none'" class="fa fa-remove w3-right w3-button w3-transparent w3-xxlarge"></i>
-      <form action="/action_page.php">
+      <form action="register" method ="POST">
        <h2 class="w3-wide">REGISTER</h2>
       <p>Fill it up to receive updates on new arrivals and special offers.</p>
-      <p><input class="w3-input w3-border" type="text" placeholder="Enter NAME" required></p>
-      <p><input class="w3-input w3-border" type="email" placeholder="Enter E-MAIL" required></p>
-      <p><input class="w3-input w3-border" type="number" placeholder="Enter PHONE NO" required></p>
-      <p><input class="w3-input w3-border" type="text" placeholder="Enter ADDRESS" required></p>
-       <p><input class="w3-input w3-border" type="password" placeholder="Enter PASSWORD" required></p>
+      <p><input name="name" class="w3-input w3-border" type="text" placeholder="Enter NAME" required></p>
+      <p><input name="email"class="w3-input w3-border" type="email" placeholder="Enter E-MAIL" required></p>
+      <p><input name="phoneno"class="w3-input w3-border" type="number" placeholder="Enter PHONE NO" required></p>
+      <p><input name="address"class="w3-input w3-border" type="text" placeholder="Enter ADDRESS" required></p>
+       <p><input name="password"class="w3-input w3-border" type="password" placeholder="Enter PASSWORD" required></p>
        <button type="submit">Register</button>
           <input type="checkbox" checked="checked">
           </form>
@@ -394,7 +410,7 @@ span.psw {
   <div class="w3-modal-content w3-animate-zoom" style="padding:32px">
     <div class="w3-container w3-white w3-center">
       <i onclick="document.getElementById('LOGIN').style.display='none'" class="fa fa-remove w3-right w3-button w3-transparent w3-xxlarge"></i>
-      <form action="/action_page.php">
+      <form >
       <h2 class="w3-wide">LOGIN</h2>
   <div class="imgcontainer">
     <img src="https://www.w3schools.com/howto/img_avatar2.png" alt="Avatar" class="avatar">
@@ -410,6 +426,7 @@ span.psw {
     <button type="submit">Login</button>
     <input type="checkbox" checked="checked"> Remember me
   </div>
+
 
   <div class="container" style="background-color:#f1f1f1">
    
