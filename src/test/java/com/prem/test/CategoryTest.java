@@ -53,8 +53,8 @@ public class CategoryTest {
 		
 		category =new Category();
 		category=cd.getSingleCategoryUsingId(3);
-		category.setDesc(" shirt products");
-		category.setName("shirts");
+		category.setDesc(" trouser products");
+		category.setName("trouser");
 		assertEquals("success",true,cd.updateCategory(category));
 		
 		

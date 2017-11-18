@@ -79,4 +79,14 @@ public class ProductdaoImpl implements Productdao {
 		return query.getResultList();
 	}
 
+	public Product getSingleProductUsingId(int id) {
+		
+		Product product=new Product();
+		String hql="FROM Product where id=:id";
+		javax.persistence.Query query=SessionFactory.getCurrentSession().createQuery(hql);
+		query.setParameter("id",id);
+		product=(Product)query.getSingleResult();
+		return product;
+	}
+
 }

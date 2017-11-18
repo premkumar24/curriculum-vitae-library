@@ -14,10 +14,17 @@ public class Product {
 	private String name;
 	
 	private String desc;
+	private String Price;
 	
+	public String getPrice() {
+		return Price;
+	}
+	public void setPrice(String price) {
+		Price = price;
+	}
 	private String category;
 	private String image;
-	private int rating;
+	private String rating;
 	public int getId() {
 		return id;
 	}
@@ -48,10 +55,10 @@ public class Product {
 	public void setImage(String image) {
 		this.image = image;
 	}
-	public int getRating() {
+	public String getRating() {
 		return rating;
 	}
-	public void setRating(int rating) {
+	public void setRating(String rating) {
 		this.rating = rating;
 	}
 	

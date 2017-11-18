@@ -14,12 +14,12 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<style>
+<!-- <style>
 img:hover {
     -webkit-transform: scaleX(-1);
     transform: scaleX(-1);
 }
-</style>
+</style> -->
 <style>
 body {
     font-family: "Lato", sans-serif;
@@ -201,9 +201,17 @@ span.psw {
     <i onclick="w3_close()" class="fa fa-remove w3-hide-large w3-button w3-display-topright"></i>
        <a href="javascript:void(0)" class="w3-button w3-green w3-padding-large w3-small" onclick="document.getElementById('LOGIN').style.display='block'">LOGIN</a>  
   </div>
+  <div class="w3-container w3-display-container w3-padding-16"STYLE="FONT-WEIGHT:BOLD">
+    <i onclick="w3_close()" class="fa fa-remove w3-hide-large w3-button w3-display-topright"></i>
+       <a href="javascript:void(0)" class="w3-button w3-yellow w3-padding-large w3-small" onclick="document.getElementById('ADMINISTRATE').style.display='block'">ADMINISTRATE</a>  
+  </div>
   <div class="w3-padding-16 w3-large w3-text-grey" style="font-weight:bold">
-    <a href="category?menu=shirts">Shirts</a>
-    <a href="category?category=shirts">pant</a>
+    <c:forEach items="${categories}" var="category">
+    <a href="category?menu=${ category.name}">${category.name}
+
+    </a>
+   </c:forEach>
+   
     <a onclick="myAccFunc()" href="javascript:void(0)"  id="myBtn">
       Jeans <i class="fa fa-caret-down"></i>
     </a>
@@ -214,11 +222,7 @@ span.psw {
       <a href="#"><i class="fa fa-caret-right w3-margin-right"></i>Straight</a>
     </div>
     
-   <c:forEach items="${categories}" var="category">
-    <a href="category?menu=${ category.name}">${category.name}
-
-    </a>
-   </c:forEach>
+ 
   </div>
   <a href="#footer" >Contact</a> 
     <a href="#footer" >About</a> 
@@ -265,15 +269,15 @@ span.psw {
   </div>
 
   <!-- Product grid -->
-  <div class="w3-row w3-grayscale">
+  <div class="w3-row ">
     <div class="w3-col l3 s6">
       <div class="w3-container">
-        <img src="https://www.w3schools.com/w3images/jeans1.jpg" style="width:100%">
-        <p>Ripped Skinny Jeans<br><b>$24.99</b></p>
+        <img src="https://images-na.ssl-images-amazon.com/images/I/51HfqLrQQQL.jpg" style="width:90%">
+        <p>Branded cotton shirt<br><b>$24.99</b></p>
       </div>
       <div class="w3-container">
-        <img src="https://www.w3schools.com/w3images/jeans2.jpg" style="width:100%">
-        <p>Mega Ripped Jeans<br><b>$19.99</b></p>
+        <img src="https://i.pinimg.com/736x/54/2e/8b/542e8b3a637c3965f1ffa1ca033fa6c9--abercrombie-men-workwear.jpg" style="width:100%">
+        <p>Men jagger trousers<br><b>$19.99</b></p>
       </div>
       
     </div>
@@ -297,18 +301,18 @@ span.psw {
 
     <div class="w3-col l3 s6">
       <div class="w3-container">
-        <img src="https://www.w3schools.com/w3images/jeans3.jpg" style="width:100%">
-        <p>Washed Skinny Jeans<br><b>$20.50</b></p>
+        <img src="https://images-eu.ssl-images-amazon.com/images/I/41E7m34aUoL._AC_UL260_SR200,260_FMwebp_QL70_.jpg" width="100px" height="170px">
+        <p>Rodid Casual Shirt<br><b>$20.50</b></p>
       </div>
       <div class="w3-container">
         <div class="w3-display-container">
-          <img src="https://www.w3schools.com/w3images/jeans4.jpg" style="width:100%">
+          <img src="https://rlv.zcache.com/worlds_best_baba_t_shirt-rb935ff7c9a694dc5945c6e4d834fa7eb_k2gm8_400.jpg" style="width:100%">
           <span class="w3-tag w3-display-topleft">Sale</span>
           <div class="w3-display-middle w3-display-hover">
             <button class="w3-button w3-black">Buy now <i class="fa fa-shopping-cart"></i></button>
           </div>
         </div>
-        <p>Vintage Skinny Jeans<br><b class="w3-text-red">$14.99</b></p>
+        <p>Mens casual shirt<br><b class="w3-text-red">$14.99</b></p>
       </div>
     </div>
 
@@ -399,7 +403,27 @@ span.psw {
       <p><input name="phoneno"class="w3-input w3-border" type="number" placeholder="Enter PHONE NO" required></p>
       <p><input name="address"class="w3-input w3-border" type="text" placeholder="Enter ADDRESS" required></p>
        <p><input name="password"class="w3-input w3-border" type="password" placeholder="Enter PASSWORD" required></p>
-       <button type="submit">Register</button>
+       <button type="submit" class="w3-button w3-red w3-padding-large w3-small">Register</button>
+          <input type="checkbox" checked="checked">
+          </form>
+    </div>
+  </div>
+</div>
+<!-- ADMINISTRATE Modal -->
+<div  ID="ADMINISTRATE" class="w3-modal">
+  <div class="w3-modal-content w3-animate-zoom" style="padding:32px">
+    <div class="w3-container w3-white w3-center">
+      <i onclick="document.getElementById('ADMINISTRATE').style.display='none'" class="fa fa-remove w3-right w3-button w3-transparent w3-xxlarge"></i>
+      <form action="file" method ="POST" enctype="multipart/form-data">
+       <h2 class="w3-wide">ADMIN</h2>
+      <p>Fill it up to  updates on the new and special offers.</p>
+      <p><input name="CATEGORY" class="w3-input w3-border" type="text" placeholder="Enter CATEGORY" required></p>
+      <p><input name="DESC"class="w3-input w3-border" type="text" placeholder="Enter DESC" required></p>
+      <p><input name="NAME"class="w3-input w3-border" type="text" placeholder="Enter NAME" required></p>
+      <p><input name="RATING"class="w3-input w3-border" type="number" placeholder="Enter RATING" required></p>
+      <p><input name="PRICE"class="w3-input w3-border" type="TEXT" placeholder="Enter PRICE" required></p>
+      <p><input name="img"class="w3-input w3-border" type="file" placeholder="CHOOSE IMAGE" required></p>
+       <button type="submit" class="w3-button w3-yellow w3-padding-large w3-small">DONE</button>
           <input type="checkbox" checked="checked">
           </form>
     </div>
