@@ -1,29 +1,295 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
     <%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
-    
+    <%@ taglib uri = "http://www.springframework.org/security/tags" prefix = "security" %>
     <%@ page isELIgnored="false" %>
+     <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+     <%@ taglib uri = "http://java.sun.com/jsp/jstl/sql" prefix = "sql"%>
+   
+   <%@ include file="navbar1.jsp"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-<title>CLOTHES SITE</title>
+<head>
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
 
-<meta charset="UTF-8">
+
+<style type="text/css">
+ body {
+        
+}
+
+.navbar {
+    z-index: 16;
+    position: fixed;
+    top: 0;
+        left: 0;
+    right: 0;
+    width: 100%;
+    -webkit-transition: all .2s ease;
+    -o-transition: all .2s ease;
+    transition: all .2s ease;
+    height: 77px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: row;
+    flex-direction: row;
+    border-bottom: 1px solid transparent;
+}
+        .navbar span {
+            position:relative;
+            top:5px;
+    background-image: url(https://goo.gl/NLUdLH);
+    background-position: 0px 0px;
+    height: 51px;
+    width: 177px;
+    display: inline-block;
+    -webkit-transition: .3s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+    -o-transition: .3s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+    transition: .3s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+}
+.navbar a i {
+    position:relative;
+    top:-10px;
+    font-size: 45px;
+    height: 43px;
+    width: 43px;
+    line-height: 42px;
+    text-align: center;
+    margin-right: 10px;
+    border-radius: 6px;
+    -webkit-transition: all .5s ease;
+    -o-transition: all .5s ease;
+    transition: all .5s ease;
+}
+
+.carousel-control-prev, .carousel-control-next{
+    /*background: black;*/
+    width: 4.5% !important;
+    transition: opacity .2s ease-in;
+}
+.carousel-control-next-icon {
+    background-image: url(https://image.flaticon.com/icons/svg/481/481146.svg) !important;
+    transform: rotate(180deg);
+}
+.carousel-control-prev-icon {
+    background-image: url(https://image.flaticon.com/icons/svg/481/481146.svg) !important;
+}
+.carousel-control-next-icon, .carousel-control-prev-icon {
+    display: inline-block;
+    width: 50px;
+    height: 50px;
+    background: transparent no-repeat center center;
+    background-size: 100% 100%;
+}
+.carousel-control-next{right:-70px;}
+.carousel-control-prev{left:-70px;}
+.bisc {
+    color: white;
+    margin-right: 0px;
+    background: -webkit-gradient(linear, right top, left bottom, from(#4c68d7), color-stop(#8a3ab9), color-stop(#cd486b), color-stop(#fb8750), to(#FF9800));
+    background: -webkit-linear-gradient(right top, #4c68d7, #8a3ab9, #cd486b, #fb8750, #FF9800);
+    background: -o-linear-gradient(right top, #4c68d7, #8a3ab9, #cd486b, #fb8750, #FF9800);
+    background: linear-gradient(to left bottom, #4c68d7, #8a3ab9, #cd486b, #fb8750, #FF9800);
+    -webkit-transform: rotate(360deg) scale(1.1);
+    -ms-transform: rotate(360deg) scale(1.1);
+    transform: rotate(360deg) scale(1.1);
+}
+        
+      
+        
+        
+      
+        
+        
+        .card {
+            position: relative;
+            display: -ms-flexbox;
+            display: flex;
+            -ms-flex-direction: column;
+            flex-direction: column;
+          
+            word-wrap: break-word;
+            background-color: #fff;
+            background-clip: border-box;
+            border: none;
+           
+        }
+        
+        .myback-img {
+            display: flex;
+            justify-content: center;
+            height: 372px;
+            overflow: hidden;
+            object-fit: cover;
+           
+        }
+        
+        .myoverlay {
+            position: absolute;
+           
+            height: 50%;
+            width: 100%;
+            top: 0;
+        }
+        
+        .card-body {
+            -ms-flex: 1 1 auto;
+            flex: 1 1 auto;
+            padding: 0;
+        }
+        
+        .avatar-profile img {
+            width: 90px;
+            height: 90px;
+            border-radius: 100%;
+            overflow: hidden;
+            opacity: 0.9;
+            object-fit: cover;
+            -o-object-fit: cover;
+        }
+        
+        .borders {
+            position: relative;
+            border: 5px solid #fff;
+            border-radius: 100%;
+        }
+        
+        .borders:before {
+            content: " ";
+            position: absolute;
+            z-index: -1;
+            top: -10px;
+            left: -10px;
+            right: -10px;
+            bottom: -10px;
+            border-radius: 100%;
+            background-image: linear-gradient(90deg, #FDA240, #C5087E), linear-gradient(90deg, #FDA240, #C5087E);
+            background-position: 0 0px, 100% 100%;
+            background-size: 100% 5px;
+            border-left: 5px solid #FDA240;
+            border-right: 5px solid #C5087E;
+            padding: 10px 5px;
+        }
+        
+        .profile-img {
+            position: absolute;
+            top: 41%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        
+        .profile-title {
+            text-align: center;
+            position: relative;
+            top: -39px;
+            margin-bottom: -26px;
+        }
+        
+        .profile-title h3 {
+            font-size: 18px;
+            color: #fff;
+            font-weight: bold;
+            margin-bottom: 0;
+        }
+        
+        a:hover {
+            text-decoration: none !important;
+        }
+        /*--carousel css--*/
+        
+        @media (min-width: 768px) {
+            /* show 3 items */
+            .carousel-inner .active,
+            .carousel-inner .active + .carousel-item,
+            .carousel-inner .active + .carousel-item + .carousel-item,
+            .carousel-inner .active + .carousel-item + .carousel-item + .carousel-item {
+                display: block;
+            }
+            .carousel-inner .carousel-item.active:not(.carousel-item-right):not(.carousel-item-left),
+            .carousel-inner .carousel-item.active:not(.carousel-item-right):not(.carousel-item-left) + .carousel-item,
+            .carousel-inner .carousel-item.active:not(.carousel-item-right):not(.carousel-item-left) + .carousel-item + .carousel-item,
+            .carousel-inner .carousel-item.active:not(.carousel-item-right):not(.carousel-item-left) + .carousel-item + .carousel-item + .carousel-item {
+                transition: none;
+            }
+            .carousel-inner .carousel-item-next,
+            .carousel-inner .carousel-item-prev {
+                position: relative;
+                transform: translate3d(0, 0, 0);
+            }
+            .carousel-inner .active.carousel-item + .carousel-item + .carousel-item + .carousel-item + .carousel-item {
+                position: absolute;
+                top: 0;
+                right: -25%;
+                z-index: -1;
+                display: block;
+                visibility: visible;
+            }
+            /* left or forward direction */
+            .active.carousel-item-left + .carousel-item-next.carousel-item-left,
+            .carousel-item-next.carousel-item-left + .carousel-item,
+            .carousel-item-next.carousel-item-left + .carousel-item + .carousel-item,
+            .carousel-item-next.carousel-item-left + .carousel-item + .carousel-item + .carousel-item,
+            .carousel-item-next.carousel-item-left + .carousel-item + .carousel-item + .carousel-item + .carousel-item {
+                position: relative;
+                transform: translate3d(-100%, 0, 0);
+                visibility: visible;
+            }
+            /* farthest right hidden item must be abso position for animations */
+            .carousel-inner .carousel-item-prev.carousel-item-right {
+                position: absolute;
+                top: 0;
+                left: 0;
+                z-index: -1;
+                display: block;
+                visibility: visible;
+            }
+            /* right or prev direction */
+            .active.carousel-item-right + .carousel-item-prev.carousel-item-right,
+            .carousel-item-prev.carousel-item-right + .carousel-item,
+            .carousel-item-prev.carousel-item-right + .carousel-item + .carousel-item,
+            .carousel-item-prev.carousel-item-right + .carousel-item + .carousel-item + .carousel-item,
+            .carousel-item-prev.carousel-item-right + .carousel-item + .carousel-item + .carousel-item + .carousel-item {
+                position: relative;
+                transform: translate3d(100%, 0, 0);
+                visibility: visible;
+                display: block;
+                visibility: visible;
+            }
+        }
+</style>
+</head>
+<title>CURRICULUM VITAE</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="shortcut icon" type="image/x-icon" href="resources/android-icon-96x96.png" />
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<!-- <style>
-img:hover {
-    -webkit-transform: scaleX(-1);
-    transform: scaleX(-1);
-}
-</style> -->
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <style>
-body {
+ body {
     font-family: "Lato", sans-serif;
-}
+} 
 
 .sidenav {
     height: 100%;
@@ -69,7 +335,7 @@ body {
 .w3-sidebar a {font-family: "Roboto", sans-serif}
 body,h1,h2,h3,h4,h5,h6,.w3-wide {font-family: "Montserrat", sans-serif;}
 /* Full-width input fields */
-input[type=text], input[type=password] {
+input[type=text], input[type=password],input[type=email],input[type=number],input[type=radio] {
     width: 100%;
     padding: 12px 20px;
     margin: 8px 0;
@@ -187,282 +453,314 @@ span.psw {
     }
 }
 </style>
-<body class="w3-content" style="max-width:2000px">
+  <style>
+  /* Style the input field */
+  #myInput {
+    padding: 20px;
+    background: #f1f1f1;
+  }
+  </style>
+<body class="w3-content" style="max-width:2000px" >
+<sql:query dataSource = "${snapshot}" var = "details">
+       SELECT * FROM DETAILS ;
+         </sql:query>
 
 
-<!-- Sidebar/menu -->
+                      <!-- Sidebar/menu -->
+                      
 <div id="mySidenav" class="sidenav">
   <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+   
+   
   <div class="w3-container w3-display-container w3-padding-16"STYLE="FONT-WEIGHT:BOLD">
-    <i onclick="w3_close()" class="fa fa-remove w3-hide-large w3-button w3-display-topright"></i>
-       <a href="javascript:void(0)" class="w3-button w3-red w3-padding-large w3-small" onclick="document.getElementById('REGISTER').style.display='block'">REGISTER</a>  
+   <security:authorize access="!hasAnyRole('USER','ADMIN')">
+       <a href="javascript:void(0)" class="w3-button w3-red w3-padding-large w3-small"onclick="document.getElementById('REGISTER').style.display='block'" >REGISTER</a>  
+       </security:authorize>
+        </div>
+ 
+  
+    <security:authorize access="!hasAnyRole('USER','ADMIN')">
+   <div class="w3-container w3-display-container w3-padding-16"STYLE="FONT-WEIGHT:BOLD">
+ 
+       <a href="login"  class="w3-button w3-green w3-padding-large w3-small" >LOGIN</a>  
+  </div>
+  
+  </security:authorize>
+   <div class="w3-container w3-display-container w3-padding-16"STYLE="FONT-WEIGHT:BOLD">
+   
+     <security:authorize access="hasAnyRole('USER','ADMIN')">
+       <a href="logout" class="w3-button w3-red w3-padding-large w3-small" >LOGOUT</a>  
+       </security:authorize>
+  </div>
+ 
+  
+  <div class="w3-container w3-display-container w3-padding-16"STYLE="FONT-WEIGHT:BOLD">
+   
+      <security:authorize access="hasAnyRole('USER','ADMIN')">
+       <a href="profile" class="w3-button w3-yellow w3-padding-large w3-small" >MY PROFILE</a>  
+       </security:authorize>
+       
   </div>
    <div class="w3-container w3-display-container w3-padding-16"STYLE="FONT-WEIGHT:BOLD">
-    <i onclick="w3_close()" class="fa fa-remove w3-hide-large w3-button w3-display-topright"></i>
-       <a href="javascript:void(0)" class="w3-button w3-green w3-padding-large w3-small" onclick="document.getElementById('LOGIN').style.display='block'">LOGIN</a>  
-  </div>
-  <div class="w3-container w3-display-container w3-padding-16"STYLE="FONT-WEIGHT:BOLD">
-    <i onclick="w3_close()" class="fa fa-remove w3-hide-large w3-button w3-display-topright"></i>
-       <a href="javascript:void(0)" class="w3-button w3-yellow w3-padding-large w3-small" onclick="document.getElementById('ADMINISTRATE').style.display='block'">ADMINISTRATE</a>  
-  </div>
-  <div class="w3-padding-16 w3-large w3-text-grey" style="font-weight:bold">
-    <c:forEach items="${categories}" var="category">
-    <a href="category?menu=${ category.name}">${category.name}
-
-    </a>
-   </c:forEach>
    
-    <a onclick="myAccFunc()" href="javascript:void(0)"  id="myBtn">
-      Jeans <i class="fa fa-caret-down"></i>
-    </a>
-    <div id="demoAcc" class="w3-bar-block w3-hide w3-padding-large w3-medium">
-      <a href="#"><i class="fa fa-caret-right w3-margin-right"></i>Skinny</a>
-      <a href="#"><i class="fa fa-caret-right w3-margin-right"></i>Relaxed</a>
-      <a href="#"><i class="fa fa-caret-right w3-margin-right"></i>Bootcut</a>
-      <a href="#"><i class="fa fa-caret-right w3-margin-right"></i>Straight</a>
-    </div>
-    
- 
+      <security:authorize access="hasAnyRole('USER','ADMIN')">
+       <a href="userprofile" class="w3-button w3-blue w3-padding-large w3-small" >USERS</a>  
+       </security:authorize>
+       
   </div>
-  <a href="#footer" >Contact</a> 
-    <a href="#footer" >About</a> 
-  <a href="#foot"   >Subscribe</a>
+   <div class="w3-container w3-display-container w3-padding-16"STYLE="FONT-WEIGHT:BOLD">
+   
+      <security:authorize access="hasAnyRole('USER','ADMIN')">
+       <a href="updateprofile" class="w3-button w3-pink w3-padding-large w3-small" >EDIT PROFILE</a>  
+       </security:authorize>
+       
+  </div>
+  
+ 
+  <div class="w3-container w3-display-container w3-padding-16"STYLE="FONT-WEIGHT:BOLD">
+    
+    <security:authorize access="hasRole('ADMIN')">
+       <a href="javascript:void(0)" class="w3-button w3-yellow w3-padding-large w3-small" onclick="document.getElementById('ADMINISTRATE').style.display='block'">ADMINISTRATE</a> 
+       </security:authorize> 
+  </div>
+     
+  <a href="#contact" >contact</a> 
+    <a href="" >Feedback</a> 
+  
 
 </div>
  
 
 
 
-<!-- Overlay effect when opening sidebar on small screens -->
+                   <!-- Overlay effect when opening sidebar on small screens -->
+
 <div class="w3-overlay w3-hide-large" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
 
-<!-- !PAGE CONTENT! -->
-<div class="w3-main" style="margin-left:0px">
+                                 <!-- !PAGE CONTENT! -->
+                                 
+<div class="w3-main" style="margin-left:0px"onclick="w3_close()">
 
   <!-- Push down content on small screens -->
   <div class="w3-hide-large" style="margin-top:0px"></div>
   
-  <!-- Top header -->
-  <header class="w3-container w3-xlarge">
-   
-    <p class="w3-left"><span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; open</span>
-    </p>
-    <p class="w3-right">
-      <i class="fa fa-shopping-cart w3-margin-right"></i>
-      <a href="#" class="fa fa-search"></a>
-    </p>
-  </header>
-
-  <!-- Image header -->
-  <div class="w3-display-container w3-container">
-    <img src="https://www.w3schools.com/w3images/jeans.jpg" alt="Jeans" style="width:100%">
-    <div class="w3-display-topleft w3-text-white" style="padding:24px 48px">
-      <h1 class="w3-jumbo w3-hide-small">New arrivals</h1>
-      <h1 class="w3-hide-large w3-hide-medium">New arrivals</h1>
-      <h1 class="w3-hide-small">COLLECTION 2017</h1>
-      <p><a href="#jeans" class="w3-button w3-black w3-padding-large w3-large">SHOP NOW</a></p>
-    </div>
-  </div>
-
-  <div class="w3-container w3-text-grey" id="jeans">
-    <p>8 items</p>
-  </div>
-
-  <!-- Product grid -->
-  <div class="w3-row ">
-    <div class="w3-col l3 s6">
-      <div class="w3-container">
-        <img src="https://images-na.ssl-images-amazon.com/images/I/51HfqLrQQQL.jpg" style="width:90%">
-        <p>Branded cotton shirt<br><b>$24.99</b></p>
-      </div>
-      <div class="w3-container">
-        <img src="https://i.pinimg.com/736x/54/2e/8b/542e8b3a637c3965f1ffa1ca033fa6c9--abercrombie-men-workwear.jpg" style="width:100%">
-        <p>Men jagger trousers<br><b>$19.99</b></p>
-      </div>
-      
-    </div>
-
-    <div class="w3-col l3 s6">
-      <div class="w3-container">
-        <div class="w3-display-container">
-          <img src="https://www.w3schools.com/w3images/jeans2.jpg" style="width:100%">
-          <span class="w3-tag w3-display-topleft">New</span>
-          <div class="w3-display-middle w3-display-hover">
-           <button type="submit" class="w3-button w3-black">Buy now <i class="fa fa-shopping-cart"></i></button>
-          </div>
-        </div>
-        <p>Mega Ripped Jeans<br><b>$19.99</b></p>
-      </div>
-      <div class="w3-container">
-        <img src="https://www.w3schools.com/w3images/jeans3.jpg" style="width:100%">
-        <p>Washed Skinny Jeans<br><b>$20.50</b></p>
-      </div>
-    </div>
-
-    <div class="w3-col l3 s6">
-      <div class="w3-container">
-        <img src="https://images-eu.ssl-images-amazon.com/images/I/41E7m34aUoL._AC_UL260_SR200,260_FMwebp_QL70_.jpg" width="100px" height="170px">
-        <p>Rodid Casual Shirt<br><b>$20.50</b></p>
-      </div>
-      <div class="w3-container">
-        <div class="w3-display-container">
-          <img src="https://rlv.zcache.com/worlds_best_baba_t_shirt-rb935ff7c9a694dc5945c6e4d834fa7eb_k2gm8_400.jpg" style="width:100%">
-          <span class="w3-tag w3-display-topleft">Sale</span>
-          <div class="w3-display-middle w3-display-hover">
-            <button class="w3-button w3-black">Buy now <i class="fa fa-shopping-cart"></i></button>
-          </div>
-        </div>
-        <p>Mens casual shirt<br><b class="w3-text-red">$14.99</b></p>
-      </div>
-    </div>
-
-    <div class="w3-col l3 s6">
-      <div class="w3-container">
-        <img src="https://www.w3schools.com/w3images/jeans4.jpg" style="width:100%">
-        <p>Vintage Skinny Jeans<br><b>$14.99</b></p>
-      </div>
-      <div class="w3-container">
-        <img src="https://www.w3schools.com/w3images/jeans1.jpg" style="width:100%">
-        <p>Ripped Skinny Jeans<br><b>$24.99</b></p>
-      </div>
-    </div>
-  </div>
-
-  <!-- Subscribe section -->
-  <div class="w3-container w3-black w3-padding-32" id="foot">
-    <h1>Subscribe</h1>
-    <p>To get special offers and VIP treatment:</p>
-        <form action="/action_page.php" target="_blank">
-    <p><input class="w3-input w3-border" type="email" placeholder="Enter e-mail" required style="width:100%"></p>
-    <button type="submit" class="w3-button w3-red w3-margin-bottom">Subscribe</button>
-    </form>
-  </div>
+                                   <!-- Top header -->
   
-  <!-- Footer -->
-  <footer class="w3-padding-64 w3-light-grey w3-small w3-center" id="footer">
-    <div class="w3-row-padding">
-      <div class="w3-col s4">
-        <h4>Contact</h4>
-        <p>Questions? Go ahead.</p>
-        <form action="/action_page.php" target="_blank">
-          <p><input class="w3-input w3-border" type="text" placeholder="Name" name="Name" required></p>
-          <p><input class="w3-input w3-border" type="email" placeholder="Email" name="Email" required></p>
-          <p><input class="w3-input w3-border" type="text" placeholder="Subject" name="Subject" required></p>
-          <p><input class="w3-input w3-border" type="text" placeholder="Message" name="Message" required></p>
-          <button type="submit" class="w3-button w3-block w3-black">Send</button>
-        </form>
+  
+  
+  
+ <div id="close" onclick="closeNav()">
+  <!-- Image header -->
+  
+<div class="container" style="width:100%;">
+
+  <div id="myCarousel" class="carousel slide" data-ride="carousel">
+    <!-- Indicators -->
+    <ol class="carousel-indicators">
+      <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+      <li data-target="#myCarousel" data-slide-to="1"></li>
+      <li data-target="#myCarousel" data-slide-to="2"></li>
+    </ol>
+
+    <!-- Wrapper for slides -->
+    <div class="carousel-inner">
+
+      <div class="item active">
+        <img src="http://www.adepttraining.com.au/resources/images/resume_002.jpg" alt="Los Angeles" style="width:100%;">
+        <div class="carousel-caption">
+         
+        </div>
       </div>
 
-      <div class="w3-col s4">
-        <h4>About</h4>
-        <p><a href="#">About us</a></p>
-        <p><a href="#">We're hiring</a></p>
-        <p><a href="#">Support</a></p>
-        <p><a href="#">Find store</a></p>
-        <p><a href="#">Shipment</a></p>
-        <p><a href="#">Payment</a></p>
-        <p><a href="#">Gift card</a></p>
-        <p><a href="#">Return</a></p>
-        <p><a href="#">Help</a></p>
+      <div class="item">
+        <img src="https://media.istockphoto.com/vectors/curriculum-vitae-banner-and-icons-vector-id636223658" alt="Jeans" style="width:100%;">
       </div>
-
-      <div class="w3-col s4 w3-justify">
-        <h4>Store</h4>
-        <p><i class="fa fa-fw fa-map-marker"></i> Company Name</p>
-        <p><i class="fa fa-fw fa-phone"></i> 0044123123</p>
-        <p><i class="fa fa-fw fa-envelope"></i> ex@mail.com</p>
-        <h4>We accept</h4>
-        <p><i class="fa fa-fw fa-cc-amex"></i> Amex</p>
-        <p><i class="fa fa-fw fa-credit-card"></i> Credit Card</p>
-        <br>
-        <i class="fa fa-facebook-official w3-hover-opacity w3-large"></i>
-        <i class="fa fa-instagram w3-hover-opacity w3-large"></i>
-        <i class="fa fa-snapchat w3-hover-opacity w3-large"></i>
-        <i class="fa fa-pinterest-p w3-hover-opacity w3-large"></i>
-        <i class="fa fa-twitter w3-hover-opacity w3-large"></i>
-        <i class="fa fa-linkedin w3-hover-opacity w3-large"></i>
+    
+      <div class="item">
+        <img src="https://spunout.ie/images/made/images/articles/curriculum_vitae_800_440_80_c1.jpg" alt="New York" style="width:100%;">
+        <div class="carousel-caption">
+          
+        </div>
       </div>
+  
     </div>
-  </footer>
 
-  <div class="w3-black w3-center w3-padding-24">Powered by PREMKUMAR S</div>
-
-  <!-- End page content -->
+                             <!-- Left and right controls -->
+    <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+      <span class="glyphicon glyphicon-chevron-left"></span>
+      <span class="sr-only">Previous</span>
+    </a>
+    <a class="right carousel-control" href="#myCarousel" data-slide="next">
+      <span class="glyphicon glyphicon-chevron-right"></span>
+      <span class="sr-only">Next</span>
+    </a>
+  </div>
+</div>
 </div>
 
-<!-- Register Modal -->
+                              <!-- profile cards -->
+   <div class="container">
+<h1><p align="center">People you may know</p></h1>
+        <div class="container">
+            <div id="carouselExample" class="carousel slide" data-ride="carousel" >
+                <div class="carousel-inner row w-100 mx-auto" role="listbox">
+                    <div class="carousel-item col-md-3  active">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <div class="myback-img ">
+                                    <img src="https://images.pexels.com/photos/907267/pexels-photo-907267.jpeg?auto=compress&cs=tinysrgb&h=350" class="">
+                                </div>
+                                <div class="myoverlay"></div>
+                                <div class="profile-img">
+                                    <div class="borders avatar-profile">
+                                        <img src="https://images.pexels.com/photos/907267/pexels-photo-907267.jpeg?auto=compress&cs=tinysrgb&h=350">
+                                    </div>
+                                </div>
+                                <div class="profile-title">
+                                    <a href="#">
+                                        <h3>Diane</h3>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                 
+                    
+                   
+                   <c:forEach var = "details" items = "${details.rows}">
+                   
+                    <div class="carousel-item col-md-3 ">
+                    
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <div class="myback-img ">
+                                    <img src="resources/images/${details.img}" class="img-rectangle img-thumbnail">
+                                </div>
+                                <div class="myoverlay"></div>
+                                <div class="profile-img">
+                                    <div class="borders avatar-profile">
+                                        <img src="resources/images/${details.img}">
+                                    </div>
+                                </div>
+                                <div class="profile-title">
+                                    <a href="#">
+                                        <h3>${details.fname} ${details.lname}</h3>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                       
+                    </div>
+                    </c:forEach>
+                    <div class="carousel-item col-md-3  ">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <div class="myback-img ">
+                                    <img src="https://images.pexels.com/photos/734725/pexels-photo-734725.jpeg?auto=compress&cs=tinysrgb&h=350" class="">
+                                </div>
+                                <div class="myoverlay"></div>
+                                <div class="profile-img">
+                                    <div class="borders avatar-profile">
+                                        <img src="https://images.pexels.com/photos/211050/pexels-photo-211050.jpeg?auto=compress&cs=tinysrgb&h=350">
+                                    </div>
+                                </div>
+                                <div class="profile-title">
+                                    <a href="#">
+                                        <h3>Ipsum</h3>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <a class="carousel-control-prev" href="#carouselExample" role="button" data-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Previous</span>
+                </a>
+                <a class="carousel-control-next text-faded" href="#carouselExample" role="button" data-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Next</span>
+                </a>
+            </div>
+        </div>
+  </div>
+                             
+
+  
+ 
+  <footer class="w3-padding-64 w3-ligh w3-small w3-center" id="footer" onclick="closeNav()">
+
+<!-- Container (Contact Section) -->
+<div class="w3-content w3-container w3-padding-64" id="contact" onclick="w3_close()">
+  <h3 class="w3-center">WHERE I WORK</h3>
+  <p class="w3-center"><em>I'd love your feedback!</em></p>
+
+  <div class="w3-row w3-padding-32 w3-section" onclick="w3_close()">
+   
+    <div class="w3-center" onclick="w3_close()">
+      <div class="w3-large w3-margin-bottom" onclick="w3_close()">
+        <i class="fa fa-map-marker fa-fw w3-hover-text-black w3-xlarge w3-CENTER"></i> Chennai, INDIA<br>
+        <i class="fa fa-phone fa-fw w3-hover-text-black w3-xlarge w3-margin-right"></i> Phone: +00 151515<br>
+        <i class="fa fa-envelope fa-fw w3-hover-text-black w3-xlarge w3-margin-right"></i> Email: mail@mail.com<br>
+      </div>
+      <p>Swing by for a cup of <i class="fa fa-coffee"></i>, or leave me a note:</p>
+      <form action="/action_page.php" target="_blank">
+        <div class="w3-row-padding" style="margin:0 -16px 8px -16px">
+          <div class="w3-half">
+            <input class="w3-input w3-border" type="text" placeholder="Name" required name="Name">
+          </div>
+          <div class="w3-half">
+            <input class="w3-input w3-border" type="text" placeholder="Email" required name="Email">
+          </div>
+        </div>
+        <input class="w3-input w3-border" type="text" placeholder="Message" required name="Message">
+        <button class="w3-button w3-black w3-right w3-section" type="submit">
+          <i class="fa fa-paper-plane"></i> SEND MESSAGE
+        </button>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- Footer -->
+
+ 
+<!-- Add Google Maps -->
+
+                                    <!-- End page content -->
+                                    
+  <div class="w3-black w3-center w3-padding-24" onclick="closeNav()">
+  <a href="#home" class="w3-button w3-light-grey"><i class="fa fa-arrow-up w3-margin-right"></i>To the top</a><br/>
+</div>
+
+
+</div>
+
+                          
+                  <!-- Register Modal -->
 <div id="REGISTER" class="w3-modal">
   <div class="w3-modal-content w3-animate-zoom" style="padding:32px">
     <div class="w3-container w3-white w3-center">
       <i onclick="document.getElementById('REGISTER').style.display='none'" class="fa fa-remove w3-right w3-button w3-transparent w3-xxlarge"></i>
       <form action="register" method ="POST">
        <h2 class="w3-wide">REGISTER</h2>
-      <p>Fill it up to receive updates on new arrivals and special offers.</p>
-      <p><input name="name" class="w3-input w3-border" type="text" placeholder="Enter NAME" required></p>
-      <p><input name="email"class="w3-input w3-border" type="email" placeholder="Enter E-MAIL" required></p>
+      <p>Fill it up to update your registration.</p>
+      <p><input name="name" class="w3-input w3-border" type="text" placeholder="Enter user NAME  " required></p>
+      <p><input name="email"class="w3-input w3-border" type="email" placeholder="Enter E-MAIL" required onblur="checkRegister(this)"></p>
       <p><input name="phoneno"class="w3-input w3-border" type="number" placeholder="Enter PHONE NO" required></p>
+      <p><input name="country"class="w3-input w3-border" type="text" placeholder="Enter COUNTRY" required></p>
       <p><input name="address"class="w3-input w3-border" type="text" placeholder="Enter ADDRESS" required></p>
        <p><input name="password"class="w3-input w3-border" type="password" placeholder="Enter PASSWORD" required></p>
+       
        <button type="submit" class="w3-button w3-red w3-padding-large w3-small">Register</button>
           <input type="checkbox" checked="checked">
           </form>
     </div>
   </div>
-</div>
-<!-- ADMINISTRATE Modal -->
-<div  ID="ADMINISTRATE" class="w3-modal">
-  <div class="w3-modal-content w3-animate-zoom" style="padding:32px">
-    <div class="w3-container w3-white w3-center">
-      <i onclick="document.getElementById('ADMINISTRATE').style.display='none'" class="fa fa-remove w3-right w3-button w3-transparent w3-xxlarge"></i>
-      <form action="file" method ="POST" enctype="multipart/form-data">
-       <h2 class="w3-wide">ADMIN</h2>
-      <p>Fill it up to  updates on the new and special offers.</p>
-      <p><input name="CATEGORY" class="w3-input w3-border" type="text" placeholder="Enter CATEGORY" required></p>
-      <p><input name="DESC"class="w3-input w3-border" type="text" placeholder="Enter DESC" required></p>
-      <p><input name="NAME"class="w3-input w3-border" type="text" placeholder="Enter NAME" required></p>
-      <p><input name="RATING"class="w3-input w3-border" type="number" placeholder="Enter RATING" required></p>
-      <p><input name="PRICE"class="w3-input w3-border" type="TEXT" placeholder="Enter PRICE" required></p>
-      <p><input name="img"class="w3-input w3-border" type="file" placeholder="CHOOSE IMAGE" required></p>
-       <button type="submit" class="w3-button w3-yellow w3-padding-large w3-small">DONE</button>
-          <input type="checkbox" checked="checked">
-          </form>
-    </div>
-  </div>
-</div>
-<!-- login Modal -->
-<div id="LOGIN" class="w3-modal">
-  <div class="w3-modal-content w3-animate-zoom" style="padding:32px">
-    <div class="w3-container w3-white w3-center">
-      <i onclick="document.getElementById('LOGIN').style.display='none'" class="fa fa-remove w3-right w3-button w3-transparent w3-xxlarge"></i>
-      <form >
-      <h2 class="w3-wide">LOGIN</h2>
-  <div class="imgcontainer">
-    <img src="https://www.w3schools.com/howto/img_avatar2.png" alt="Avatar" class="avatar">
-  </div>
-
-  <div class="container">
-    <label><b>Username</b></label>
-    <input type="text" placeholder="Enter Username" name="uname" required>
-
-    <label><b>Password</b></label>
-    <input type="password" placeholder="Enter Password" name="psw" required>
-        
-    <button type="submit">Login</button>
-    <input type="checkbox" checked="checked"> Remember me
-  </div>
+</div>           
 
 
-  <div class="container" style="background-color:#f1f1f1">
-   
-    <span class="psw">Forgot <a href="#">password?</a></span>
-  </div>
-</form>
-      
-      
-    </div>
-  </div>
-</div>
-
+                           
 <script>
 // Accordion 
 function myAccFunc() {
@@ -478,7 +776,7 @@ function myAccFunc() {
 document.getElementById("myBtn").click();
 
 
-// Script to open and close sidebar
+                 // Script to open and close sidebar
 function w3_open() {
     document.getElementById("mySidebar").style.display = "block";
     document.getElementById("myOverlay").style.display = "block";
@@ -489,7 +787,6 @@ function w3_close() {
     document.getElementById("myOverlay").style.display = "none";
 }
 </script>
-
 <script>
 function openNav() {
     document.getElementById("mySidenav").style.width = "250px";
@@ -499,9 +796,37 @@ function closeNav() {
     document.getElementById("mySidenav").style.width = "0";
 }
 </script>
-     
+             
 
+              
 
+<script type="text/javascript">
+   $('#carouselExample').on('slide.bs.carousel', function(e) {
 
+       var $e = $(e.relatedTarget);
+       var idx = $e.index();
+       var itemsPerSlide = 4;
+       var totalItems = $('.carousel-item').length;
+
+       if (idx >= totalItems - (itemsPerSlide - 1)) {
+           var it = itemsPerSlide - (totalItems - idx);
+           for (var i = 0; i < it; i++) {
+               // append slides to end
+               if (e.direction == "left") {
+                   $('.carousel-item').eq(i).appendTo('.carousel-inner');
+               } else {
+                   $('.carousel-item').eq(0).appendTo('.carousel-inner');
+               }
+           }
+       }
+   });
+
+   $('#carouselExample').carousel({
+       interval: 2000
+   });
+
+   </script>
+    <!-- Page Content -->
 </body>
 </html>
+  
